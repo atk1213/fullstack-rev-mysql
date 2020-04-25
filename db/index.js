@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   user: 'root',
   password: '',
-  database: 'hrla32students'
+  database: 'hrlaStudents'
 });
 
 connection.connect();
