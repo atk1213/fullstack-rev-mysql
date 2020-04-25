@@ -3,39 +3,19 @@ const helper = require('../db/dbhelpers.js');
 const controller = {
   students: {
     get: (req, res) => {
-      helper.students.getStudent(function(err, results) {
-        if (err) { console.error(err) };
-        res.json(results);
-      });
+      res.send('hello from get')
     },
     post: (req, res) => {
-      // res.status(200).send("posted a name")
-      var name = req.body.name;
-      helper.students.postName(name, (err, results) => {
-        if (err) {console.error(err)};
-        res.status(200).send('successfully posted')
-      })
+      res.send("hello from name post")
     },
     update: (req, res) => {
-      var request = {
-        newName: req.body.name,
-        id: req.body.id
-      };
-      helper.students.updateName(request, () => {
-        if (err) {console.error(err)};
-        res.status(200).send('successfully updated')
-      })
+      res.send("hello from update")
     }
   },
 
   images: {
     post: (req, res) => {
-      // res.status(200).send("posted an img")
-      var imgurl = req.body.imgurl;
-      helper.images.postImg(imgurl, (err, results) => {
-        if (err) {console.error(err)};
-        res.status(200).send('success')
-      })
+      res.send("hello from image post")
     },
   }
 };
