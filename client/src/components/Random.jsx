@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+
 
 export default class Random extends React.Component {
   constructor(props){
@@ -7,7 +7,7 @@ export default class Random extends React.Component {
     this.state = {
       'student': {}
     }
-    this.getRandomStudent = this.getRandomStudent.bind(this);
+    this.getRandomStudent = this.getRandomStudent.bind(this)
   }
 
   componentDidMount(){
@@ -18,7 +18,7 @@ export default class Random extends React.Component {
     var ind = Math.floor(Math.random() * this.props.students.length);
     this.setState({
       'student': this.props.students[ind]
-    }, () => console.log(this.state.student))
+    })
   }
 
   render() {

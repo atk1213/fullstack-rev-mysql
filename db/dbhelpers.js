@@ -4,34 +4,38 @@ module.exports = {
 
   students: {
     getStudent: function (callback) {
-      // fetch all students
-      var queryStr = 'SELECT name, imgurl FROM students INNER JOIN images ON images.id = students.id;';
-      db.query(queryStr, function(err, results) {
-        callback(err, results);
-      });
+      // fetch all students and images
+      var queryStr = 'SELECT students.id, name, imgurl FROM students INNER JOIN images ON students.id = images.id';
+      db.query(queryStr, function(err, results){
+        if(err) {callback(err)}
+        else {callback(null, results)}
+      })
     },
     postName: function (studentInfo, callback) {
-      // add a student
-      var studentQueryStr = `insert into students(name) values ('${studentInfo}')`;
-      db.query(studentQueryStr, function(err, results) {
-        callback(err, results);
-      });
+      // add a student name
+      var queryStr = `INSERT INTO students(name) VALUES ('${studentInfo}')`;
+      db.query(queryStr, function(err, results){
+        if(err) {callback(err)}
+        else {callback(null, results)}
+      })
     },
     updateName: function ({id, newName}, callback) {
-      var updateQueryStr = (`UPDATE students SET name = '${newName}' WHERE id = ${id};`)
-      db.query(updateQueryStr, function(err, results) {
-        callback(err, results);
-      });
+      var queryStr = `UPDATE students SET name = '${newName}' WHERE id = ${id}`;
+      db.query(queryStr, function(err, results){
+        if(err) {callback(err)}
+        else {callback(null, results)}
+      })
     }
   },
 
   images: {
     postImg: function (studentInfo, callback) {
       // add a student image
-      var imgQueryStr = `insert into images(imgurl) values ('${studentInfo}')`;
-      db.query(imgQueryStr, function(err, results) {
-        callback(err, results);
-      });
+      var queryStr = `INSERT INTO images(imgurl) VALUES ('${studentInfo.imgurl}')`;
+      db.query(queryStr, function(err, results){
+        if(err) {callback(err)}
+        else {callback(null, results)}
+      })
     }
   }
 };

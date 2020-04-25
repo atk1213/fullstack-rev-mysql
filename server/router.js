@@ -6,6 +6,9 @@ router
   .route('/students')
   .get(controller.students.get)
   .post(controller.students.post)
+
+router 
+  .route('/students/:id')
   .put(controller.students.update)
 
   // routes student image

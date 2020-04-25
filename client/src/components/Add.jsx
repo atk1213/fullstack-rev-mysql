@@ -8,48 +8,43 @@ export default class Add extends React.Component {
       'name': '',
       'imgurl': ''
     }
-    this.changeHandler = this.changeHandler.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-
+    this.changeHandler = this.changeHandler.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   changeHandler(e){
-    const { name, value } = e.target;
+    // Todo - handle input change
     this.setState({
-      [name]: value
-    }, () => console.log(this.state));
+      [e.target.name]: e.target.value
+    })
   }
 
   handleSubmit(e){
+    // Todo- handle new student submission
     e.preventDefault();
-    axios.post('/api/students',{
-      'name': this.state.name
+    const {name, imgurl} = this.state;
+    axios.post('/api/images', { imgurl: imgurl })
+      .then(()=>{
+        axios.post('/api/students', {name: name})
+          .then(() => {
+            window.alert('added student')
+            // this.props.getStudents()
+          })
+          .catch((err) => console.error(err))
       })
-    .then(() => {
-      axios.post('/api/images',{
-        'imgurl': this.state.imgurl
-        })
-      .then(() => {
-        window.alert('Added student')
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    })
-    .catch((err) => {
-        console.error(err)
-    })
+      .catch((err) => console.error(err))
   }
 
+  // Todo modify html to use necessary functions
   render() {
     return (
       <div>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <form onSubmit={this.handleSubmit}>
           <label>Student Name: </label>
-          <input type="text" name="name" onChange={(e) => this.changeHandler(e)} />
+          <input type="text" name="name" onChange={this.changeHandler}/>
           <label>Image URL: </label>
-          <input type="text" name="imgurl" onChange={(e) => this.changeHandler(e)} />
-          <button type="submit" value="Submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
+          <input type="text" name="imgurl" onChange={this.changeHandler}/>
+          <button type="submit" value="Submit" >Submit</button>
         </form>
       </div>
     )

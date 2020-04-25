@@ -3,38 +3,34 @@ const helper = require('../db/dbhelpers.js');
 const controller = {
   students: {
     get: (req, res) => {
-      helper.students.getStudent(function(err, results) {
-        if (err) { console.error(err) };
-        res.json(results);
-      });
+      helper.students.getStudent((err, data) => {
+        if(err) {console.log(err)}
+        res.send(data)
+      })
     },
     post: (req, res) => {
-      // res.status(200).send("posted a name")
-      var name = req.body.name;
-      helper.students.postName(name, (err, results) => {
-        if (err) {console.error(err)};
-        res.status(200).send('successfully posted')
+      helper.students.postName(req.body.name, (err, data) => {
+        if(err) {console.log(err)}
+        res.status(200).send('successful post')
       })
     },
     update: (req, res) => {
-      var request = {
-        newName: req.body.name,
-        id: req.body.id
-      };
-      helper.students.updateName(request, () => {
-        if (err) {console.error(err)};
-        res.status(200).send('successfully updated')
+      var obj = {
+        id: req.params.id,
+        newName: req.body.name
+      }
+      helper.students.updateName(obj, (err, data) => {
+        if(err) {console.log(err)}
+        res.status(200).send('successful update')
       })
     }
   },
 
   images: {
     post: (req, res) => {
-      // res.status(200).send("posted an img")
-      var imgurl = req.body.imgurl;
-      helper.images.postImg(imgurl, (err, results) => {
-        if (err) {console.error(err)};
-        res.status(200).send('success')
+      helper.images.postImg(req.body, (err, data) => {
+        if(err) {console.log(err)}
+        res.status(200).send('successful post')
       })
     },
   }
